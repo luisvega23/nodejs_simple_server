@@ -11,6 +11,9 @@ var server = http.createServer(function (request, response) {
   else if (parsedUrl.pathname === "/resta") {
     math_ops.substract(parsedUrl.query, response);
   }
+  else if (parsedUrl.pathname === "/fib") {
+    math_ops.fib(parsedUrl.query, response);
+  }
   else{
     response.write("no es suma ni resta");
   }

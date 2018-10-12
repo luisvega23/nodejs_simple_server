@@ -47,6 +47,40 @@ function substract (query, response) {
   response.end(JSON.stringify({result:resta}));
 }
 
+
+function fib(query, response){
+  var a = 1;
+  var b = 0;
+  var temp = 0;
+  for (var propName in query){
+    var splitted = query[propName];
+    if(isNumeric(splitted)) {
+      var number = Number(splitted);
+    } else{
+        response.writeHead(400, {'Content-Type': 'application/json'});
+        response.end(JSON.stringify({result:'error, el input debe ser numerico'}));
+    }
+  }
+  if (number <= 0){
+    b = 0;
+  }
+  else if (number === 1) {
+    b = 1;
+  }
+  else {
+    for (var i = number; i>0 ; i--){
+      temp = a;
+      a = a + b;
+      b = temp;
+      console.log('a = '+a);
+      console.log('b = '+b);
+      console.log('temp = '+temp);
+    }    
+  }
+  response.writeHead(200, {'Content-Type': 'application/json'})
+  response.end(JSON.stringify({result:b})) 
+}
+
 /**
  ** isNumeric returns true if input is a number. This can be done using the oppsite behaviour from isNaN function
  **/
@@ -59,3 +93,5 @@ function isNumeric(num) {
 //In this line we export the functions to be used in other javascript files. We must import this module with 'require' signature
 module.exports.add = add
 module.exports.substract = substract;
+module.exports.fib = fib;
+
