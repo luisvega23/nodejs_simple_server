@@ -47,6 +47,24 @@ function substract (query, response) {
   response.end(JSON.stringify({result:resta}));
 }
 
+function multiplication(query, response){
+  var mult = 1;
+  for (var propName in query) {
+      var splitted = query[propName]
+      if(isNumeric(splitted)) {
+        //Ok, it's a number
+        var number = Number(splitted)
+        mult = mult * number
+      } else {
+        //It's not a number, so we show an error message and sends to the client
+        response.writeHead(400, {'Content-Type': 'application/json'})
+        response.end(JSON.stringify({result:'error, el input debe ser numerico'}))
+      }
+  }
+  //If everithing was OK, we send code 200 response, using json format
+  response.writeHead(200, {'Content-Type': 'application/json'})
+  response.end(JSON.stringify({result:mult}))  
+}
 
 function fib(query, response){
   var a = 1;
@@ -93,5 +111,6 @@ function isNumeric(num) {
 //In this line we export the functions to be used in other javascript files. We must import this module with 'require' signature
 module.exports.add = add
 module.exports.substract = substract;
+module.exports.multiplication = multiplication;
 module.exports.fib = fib;
 
